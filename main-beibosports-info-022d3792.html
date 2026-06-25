@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>贝博体育 · 轻量导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #f2f6f9;
+            color: #1d2b36;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部导航 */
+        .nav-bar {
+            background: #ffffff;
+            border-bottom: 1px solid #dce5ec;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 1px 4px rgba(0, 30, 40, 0.04);
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #0c7b7b;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2a4a5a;
+            font-size: 0.95rem;
+            padding: 0.2rem 0.1rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #0c7b7b;
+            color: #064c4c;
+        }
+
+        /* hero 区域 */
+        .hero {
+            background: linear-gradient(135deg, #d9ecf0 0%, #b6d9dd 60%, #9cc9cf 100%);
+            padding: 3rem 1.5rem 2.8rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #0b4040;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: 1rem auto 0.6rem;
+            color: #1a3a44;
+            font-size: 1.05rem;
+        }
+
+        .hero .link-sentence {
+            background: rgba(255,255,255,0.35);
+            display: inline-block;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            margin-top: 1.2rem;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(44, 112, 112, 0.15);
+        }
+
+        .hero a {
+            color: #115a5a;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px dashed #0f7070;
+        }
+
+        .hero a:hover {
+            border-bottom-style: solid;
+            color: #063939;
+        }
+
+        /* 核心介绍卡片 */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 2.2rem 1.2rem;
+            max-width: 1120px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .intro-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .intro-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card-item {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.6rem 1.2rem 1.8rem;
+            box-shadow: 0 3px 12px rgba(0, 40, 45, 0.04);
+            border: 1px solid #e2edf2;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+
+        .card-item:hover {
+            box-shadow: 0 8px 20px rgba(0, 60, 65, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            background: #bbdfe3;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #0b5b5b;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-item h3 {
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: #124242;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-item p {
+            color: #2b4d57;
+            font-size: 0.95rem;
+        }
+
+        /* 三个场景模块 (网格卡片风格延续) */
+        .scene-section {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 1.2rem 1.5rem;
+        }
+
+        .scene-section h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #154747;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #aed0d6;
+            display: inline-block;
+            margin-bottom: 1.4rem;
+        }
+
+        .scene-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        @media (min-width: 560px) {
+            .scene-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 880px) {
+            .scene-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .scene-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.2rem 1rem 1.4rem;
+            border-left: 6px solid #4fafaf;
+            box-shadow: 0 2px 8px rgba(0, 35, 40, 0.03);
+            transition: background 0.1s;
+        }
+
+        .scene-card:nth-child(2) {
+            border-left-color: #3e9e9e;
+        }
+
+        .scene-card:nth-child(3) {
+            border-left-color: #2d8b8b;
+        }
+
+        .scene-card h4 {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #0b4949;
+            margin-bottom: 0.3rem;
+        }
+
+        .scene-card p {
+            font-size: 0.92rem;
+            color: #2f525c;
+        }
+
+        /* 常见说明 (FAQ 摘要) */
+        .faq-block {
+            max-width: 850px;
+            margin: 1.8rem auto 2rem;
+            padding: 0 1.2rem;
+        }
+
+        .faq-block h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #154747;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.3px;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 0.9rem;
+            border: 1px solid #dbe9ed;
+            box-shadow: 0 1px 4px rgba(0, 30, 35, 0.02);
+        }
+
+        .faq-question {
+            font-weight: 500;
+            color: #0a4747;
+            margin-bottom: 0.2rem;
+            font-size: 1.05rem;
+        }
+
+        .faq-answer {
+            color: #2a4d57;
+            font-size: 0.92rem;
+        }
+
+        .faq-answer a {
+            color: #127a7a;
+            text-decoration: none;
+            border-bottom: 1px dotted #4fa0a0;
+        }
+
+        .faq-answer a:hover {
+            border-bottom-style: solid;
+            color: #0b5a5a;
+        }
+
+        /* 底部 */
+        .footer {
+            margin-top: auto;
+            background: #e3eff2;
+            padding: 1.6rem 1.2rem;
+            text-align: center;
+            color: #1d4a4a;
+            font-size: 0.9rem;
+            border-top: 1px solid #cbdde3;
+        }
+
+        .footer a {
+            color: #105c5c;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer a:hover {
+            color: #063a3a;
+        }
+
+        /* 响应式精细调整 */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .nav-bar {
+                padding: 0.6rem 0.8rem;
+            }
+            .nav-links {
+                gap: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="nav-bar">
+        <span class="nav-logo">贝博·指南</span>
+        <div class="nav-links">
+            <a href="https://main-beibosports.com">贝博体育</a>
+            <a href="#scene">场景</a>
+            <a href="#faq">说明</a>
+        </div>
+    </nav>
+
+    <!-- hero 区域 -->
+    <header class="hero">
+        <h1>稳定 · 轻量 · 日常</h1>
+        <p>
+            一个足够简单的导航入口，不绕弯子。首页主要整理了几个常见方向，
+            如果你需要直接使用服务，可以在句子中找到 <a href="https://main-beibosports.com">贝博体育</a> 的链接，
+            它就在上下文里，自然且直接。
+        </p>
+        <div class="link-sentence">
+            ⚡ 日常访问 ·  <a href="https://main-beibosports.com">贝博体育</a>
+        </div>
+    </header>
+
+    <!-- 核心介绍卡片 (三个网格) -->
+    <div class="intro-grid">
+        <div class="card-item">
+            <div class="card-icon">🔄</div>
+            <h3>页面结构</h3>
+            <p>顶部固定导航，核心卡片区与场景模块分层展示。没有多余跳转，适合快速浏览和定位。</p>
+        </div>
+        <div class="card-item">
+            <div class="card-icon">🎨</div>
+            <h3>蓝绿点缀</h3>
+            <p>主色调选用浅蓝绿与深墨绿渐变，卡片柔和且带细微阴影，降低视觉负担，保持正式感。</p>
+        </div>
+        <div class="card-item">
+            <div class="card-icon">📱</div>
+            <h3>移动适配</h3>
+            <p>从手机到桌面，网格自动折行，间距和字号均做了响应式处理，单手操作无压力。</p>
+        </div>
+    </div>
+
+    <!-- 三个场景模块 (id用于锚点) -->
+    <section class="scene-section" id="scene">
+        <h2>常见使用场景</h2>
+        <div class="scene-grid">
+            <div class="scene-card">
+                <h4>📋 信息查阅</h4>
+                <p>只需打开页面，核心模块一览无余。适合想要快速确认功能入口或基础介绍的用户。</p>
+            </div>
+            <div class="scene-card">
+                <h4>🔗 稳定跳转</h4>
+                <p>通过导航或句子中的链接，直达 <a href="https://main-beibosports.com">贝博体育</a>。链接位置清晰，不隐藏。</p>
+            </div>
+            <div class="scene-card">
+                <h4>🧩 日常备忘</h4>
+                <p>将页面设置为浏览器主页或书签，随时可以回来。场景卡片帮你回忆页面用途。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常见说明 (FAQ 摘要) -->
+    <div class="faq-block" id="faq">
+        <h2>常见说明 · 摘要</h2>
+        <div class="faq-item">
+            <div class="faq-question">这个页面是做什么的？</div>
+            <div class="faq-answer">一个轻量导航介绍页，指向 <a href="https://main-beibosports.com">贝博体育</a> 的主要链接，并整理了几类场景和结构说明。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">为什么强调“稳定入口”？</div>
+            <div class="faq-answer">页面结构简单，链接直接放置于显眼位置和句子中，不会频繁变动布局，方便日常使用。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">移动端浏览体验如何？</div>
+            <div class="faq-answer">卡片和网格均做了响应式适配，蓝绿背景温和，字体大小经过调校，阅读和点击都较顺手。</div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <span>关于 <a href="https://main-beibosports.com">贝博体育</a> 的导航页面 · 日常稳定入口</span>
+        <span style="display: inline-block; margin-left: 1rem; opacity: 0.7;">更新于近期</span>
+    </footer>
+</body>
+</html>
